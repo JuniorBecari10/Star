@@ -119,12 +119,6 @@ impl Lexer {
           self.advance();
         }
 
-        let point_count = buf.iter().filter(|&n| *n == '.').count();
-
-        if point_count > 1 {
-          // TODO: throw error
-        }
-
         token::TokenKind::Number
       }
 
@@ -143,6 +137,14 @@ impl Lexer {
         token::TokenKind::Illegal
       }
     };
+
+    if kind == token::TokenKind::Number {
+      let point_count = buf.iter().filter(|&n| *n == '.').count();
+
+      if point_count > 1 {
+        // TODO: throw error
+      }
+    }
 
     self.advance();
     token::Token {
