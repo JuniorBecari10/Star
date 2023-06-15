@@ -18,7 +18,7 @@ pub enum TokenKind {
   RParen,
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Token {
   pub content: Vec<char>,
   pub kind: TokenKind,
