@@ -100,6 +100,7 @@ impl Lexer {
 
     let kind = match self.char() {
       '\0' => token::TokenKind::EOF,
+      '\n' => token::TokenKind::End,
 
       '+' => token::TokenKind::Plus,
       '-' => token::TokenKind::Minus,
@@ -142,7 +143,7 @@ impl Lexer {
       let point_count = buf.iter().filter(|&n| *n == '.').count();
 
       if point_count > 1 {
-        // TODO: throw error
+        todo!("throw error");
       }
     }
 
@@ -155,7 +156,7 @@ impl Lexer {
   }
 }
 
-fn lex(input: String) -> Vec<token::Token> {
+pub fn lex(input: String) -> Vec<token::Token> {
   let mut l: Lexer = Lexer::new(input.chars().collect());
   let mut tokens: Vec<token::Token> = Vec::new();
   let mut token: token::Token = l.next_token();
