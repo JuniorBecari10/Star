@@ -147,6 +147,14 @@ impl Lexer {
       }
     }
 
+    if kind == token::TokenKind::Identifier {
+      let key = &buf.iter().cloned().collect::<String>();
+
+      if token::keywords.contains_key(key) {
+        kind = *(token::keywords.get(key).expect("this will never happen, i think"));
+      }
+    }
+
     self.advance();
     token::Token {
       content: buf.clone(),

@@ -5,7 +5,7 @@ pub enum Stmt {
         line: i32,
         ident: String,
         exp: Exp,
-        constant: bool
+        is_const: bool
     },
     RetStmt {
         line: i32,
@@ -14,6 +14,10 @@ pub enum Stmt {
     ExpStmt {
         line: i32,
         exp: Exp
+    },
+    ErrorStmt {
+        line: i32,
+        msg: String
     }
 }
 
