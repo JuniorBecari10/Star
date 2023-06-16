@@ -2,6 +2,8 @@ mod ast;
 
 use crate::lexer::token::*;
 
+use self::ast::Program;
+
 struct Parser {
   input: Vec<Token>,
   cursor: usize,
@@ -37,7 +39,7 @@ impl Parser {
     self.input[self.cursor]
   }
 
-  fn next_statement(&mut self) -> ast::Stmt {
+  fn next_stmt(&mut self) -> ast::Stmt {
     if self.token().kind == TokenKind::VarKw {
       return self.parse_var_stat();
     }
@@ -72,13 +74,26 @@ impl Parser {
     ast::Stmt::VarStmt { line: 0, ident: ident, exp: exp, is_const: is_const }
   }
 
-  fn parse_exp_stmt(mut self) -> ast::Stmt {
-
+  fn parse_exp_stmt(&mut self) -> ast::Stmt {
+    ast::Stmt::ExpStmt { line: self.line, exp: self.parse_exp() }
   }
 
   // ---
 
   fn parse_exp(&mut self) -> ast::Exp {
-
+    todo!("need to do this asap")
   }
+}
+
+fn parse(tokens: Vec<Token>, line: i32) -> Program {
+  let mut stmts: Program = Vec::new();
+  let mut p = Parser::new(tokens, line);
+  let mut stmt: ast::Stmt = p.next_stmt();
+
+  while stmt != ast::Stmt::EndStmt {
+    stmts.push(stmt);
+    stmt = p.next_stmt();
+  }
+
+  stmts
 }

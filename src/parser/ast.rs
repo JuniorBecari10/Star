@@ -1,5 +1,6 @@
 pub type Program = Vec<Stmt>;
 
+#[derive(Eq, PartialEq)]
 pub enum Stmt {
     VarStmt {
         line: i32,
@@ -18,9 +19,11 @@ pub enum Stmt {
     ErrorStmt {
         line: i32,
         msg: String
-    }
+    },
+    EndStmt
 }
 
+#[derive(Eq, PartialEq)]
 pub enum Exp {
     IdentExp(String),
     NumberExp(f64),
