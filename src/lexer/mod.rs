@@ -153,6 +153,33 @@ impl Lexer {
       if token::keywords.contains_key(key) {
         kind = *(token::keywords.get(key).expect("this will never happen, i think"));
       }
+      else {
+        let prev = kind;
+        let s = buf.into_iter().collect::<String>().as_str();
+
+        kind = match s {
+          "i8"   | "byte"   => token::TokenKind::ByteType,
+          "i16"  | "short"  => token::TokenKind::ShortType,
+          "i32"  | "int"    => token::TokenKind::IntType,
+          "i64"  | "long"   => token::TokenKind::LongType,
+          "i128" | "longer" => token::TokenKind::LongerType,
+
+          "ui8"   | "ubyte"   => token::TokenKind::UbyteType,
+          "ui16"  | "ushort"  => token::TokenKind::UshortType,
+          "ui32"  | "uint"    => token::TokenKind::UintType,
+          "ui64"  | "ulong"   => token::TokenKind::UlongType,
+          "ui128" | "ulonger" => token::TokenKind::UlongerType,
+
+          "f32" | "float"  => token::TokenKind::FloatType,
+          "f64" | "double" => token::TokenKind::DoubleType,
+
+          "str"  => token::TokenKind::StrType,
+          "char" => token::TokenKind::CharType,
+          "bool" => token::TokenKind::BoolType,
+
+          _ => prev
+        }
+      }
     }
 
     self.advance();

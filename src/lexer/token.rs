@@ -13,6 +13,25 @@ pub enum TokenKind {
   VarKw,
   ConstKw,
 
+  ByteType,
+  ShortType,
+  IntType,
+  LongType,
+  LongerType,
+
+  UbyteType,
+  UshortType,
+  UintType,
+  UlongType,
+  UlongerType,
+
+  FloatType,
+  DoubleType,
+
+  StrType,
+  CharType,
+  BoolType,
+
   Plus,
   Minus,
   Star,

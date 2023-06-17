@@ -1,13 +1,12 @@
 mod ast;
 
 use crate::lexer::token::*;
-
 use self::ast::Program;
 
 struct Parser {
   input: Vec<Token>,
   cursor: usize,
-  line: i32
+  line: i32,
 }
 
 impl Parser {
@@ -55,6 +54,8 @@ impl Parser {
     let exp: ast::Exp;
 
     self.advance();
+
+    //if self.peek().kind == TokenKind
 
     if !self.expect_kind(TokenKind::Identifier) {
       return ast::Stmt::ErrorStmt { line: self.line, msg: format!("Expected Identifier, but got {:?} instead.", self.peek().kind) }
